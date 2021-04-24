@@ -19,7 +19,7 @@
     color: var(--tertiary-color);
 }
 
-.input-form, .five-day {
+.input-form, .history {
     background-color: var(--tertiary-color);
     color: var(--primary-color);
     font-size: 30px;
@@ -38,4 +38,13 @@
 .card-body, .card-title, .text {
     background-color: var(--tertiary-color);
     color: var(--primary-color);
+    font-size: medium;
+    font-weight: bold;
+}
+
+.card-city {
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    font-size: xx-large;
+    font-weight: bolder;
 }
