@@ -121,16 +121,16 @@ function displayFiveDay(dayTemp, dayWind, dayHum, dayDate) {
   var searchTerm = document.querySelector("#searchTerm").value;
   searchTerm = searchTerm.toUpperCase();
 
-  var weather = document.getElementById("response-city");
+  var weather = document.getElementById("fiveday");
   var cardEl = document.createElement("div");
-  cardEl.classList.add("card");
+  cardEl.className = "row";
   weather.appendChild(cardEl);
   
   var display = document.createElement("div");
-  display.className = "card-body"
+  display.className = "col-3 col-sm-2 five"
   cardEl.appendChild(display);
   
-  var cardTitle = document.createElement("h3");
+  var cardTitle = document.createElement("p");
   cardTitle.className = "card-city";
   cardTitle.textContent = dayDate;
   display.appendChild(cardTitle);
