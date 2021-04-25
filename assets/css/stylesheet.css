@@ -28,7 +28,7 @@
     border-radius: 15px;
 }
 
-.card, .five {
+.card {
     background-color: var(--tertiary-color);
     border: 6px solid var(--secondary-color);
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
@@ -47,4 +47,18 @@
     color: var(--primary-color);
     font-size: xx-large;
     font-weight: bolder;
+}
+
+.dayfive {
+    background-color: var(--tertiary-color);
+    border: 6px solid var(--secondary-color);
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    border-radius: 15px;
+    color: var(--primary-color);
+}
+
+.info {
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    font-weight: bold;
 }

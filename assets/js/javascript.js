@@ -63,7 +63,7 @@ function myFunction() {
     }
   })
   .then(function(data) {
-  
+    $("#fiveday").empty();
     for (var i = 1; i < 6; i++) {
       var dayTemp = data.daily[i].temp.day;
       var dayWind = data.daily[i].wind_speed;
@@ -118,35 +118,29 @@ function myFunction() {
 }
 
 function displayFiveDay(dayTemp, dayWind, dayHum, dayDate) {
-  var searchTerm = document.querySelector("#searchTerm").value;
-  searchTerm = searchTerm.toUpperCase();
-
+ 
   var weather = document.getElementById("fiveday");
-  var cardEl = document.createElement("div");
-  cardEl.className = "row";
-  weather.appendChild(cardEl);
-  
   var display = document.createElement("div");
-  display.className = "col-3 col-sm-2 five"
-  cardEl.appendChild(display);
+  display.className = "col dayfive";
+  weather.appendChild(display);
   
   var cardTitle = document.createElement("p");
-  cardTitle.className = "card-city";
+  cardTitle.className = "info";
   cardTitle.textContent = dayDate;
   display.appendChild(cardTitle);
 
   var tempInput = document.createElement("p");
-  tempInput.className = "text";
+  tempInput.className = "info";
   tempInput.textContent = "Temp: " + dayTemp + " F";
   display.appendChild(tempInput);
   
   var humInput = document.createElement("p");
-  humInput.className = "text";
+  humInput.className = "info";
   humInput.textContent = "Humidity: " + dayHum + "%";
   display.appendChild(humInput);
-
+  
   var windInput = document.createElement("p");
-  windInput.className = "text";
+  windInput.className = "info";
   windInput.textContent = "Wind: " + dayWind + " MPH";
   display.appendChild(windInput);
 }
