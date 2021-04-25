@@ -33,27 +33,52 @@ function myFunction() {
     var humidity = data.current.humidity;
     var uv = data.current.uvi;
     var wind = data.current.wind_speed;
+    var day = moment.unix(data.current.dt).format("MM/D/YY");
     
-    displayCurrent(temp, humidity, wind, uv)
-    console.log(temp, humidity, uv, wind);
+    displayCurrent(temp, humidity, wind, uv, day);
   })
   .catch(function(error) {
     console.log("No data to display");
   })
   fetch(
-    "https://api.openweathermap.org/data/2.5/forecast?q=" + searchTerm + "&units=imperial&appid=27bc004fc8746779f50a74c093ff9a93"
-  )
+    "https://api.openweathermap.org/data/2.5/weather?q=" + searchTerm + "&units=imperial&appid=27bc004fc8746779f50a74c093ff9a93"
+    )
+    .then(function(response) {
+      return response.json();
+    })
+    .then(function(data) {
+      var lat = data.coord.lat;
+      var lon = data.coord.lon;
+      
+      return fetch(
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&exclude=current,minutely,hourly,alerts&units=imperial&appid=27bc004fc8746779f50a74c093ff9a93"
+    )
+  })
   .then(function(response) {
-    return response.json();
+    if(response.ok){
+      return response.json();
+    }
+    else {
+      alert("Error: " + response.statusText);
+    }
   })
   .then(function(data) {
-   console.log(data);
+  
+    for (var i = 1; i < data.daily.length; i++) {
+      var dayTemp = data.daily[i].temp.day;
+      var dayWind = data.daily[i].wind_speed;
+      var dayHum = data.daily[i].humidity;
+      var dayDate = moment.unix(data.daily[i].dt).format("MM/D/YY");
+      
+      console.log(dayTemp, dayWind, dayHum, dayDate);
+    }
+    console.log(data);
   })
 }
 
 
   
-  function displayCurrent(temp, humidity, wind, uv) {
+  function displayCurrent(temp, humidity, wind, uv, day) {
   var searchTerm = document.querySelector("#searchTerm").value;
   searchTerm = searchTerm.toUpperCase();
 
@@ -68,7 +93,7 @@ function myFunction() {
   
   var cardTitle = document.createElement("h3");
   cardTitle.className = "card-city";
-  cardTitle.textContent = searchTerm;
+  cardTitle.textContent = searchTerm + " (" + day + ")";
   display.appendChild(cardTitle);
 
   var tempInput = document.createElement("p");
