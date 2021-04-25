@@ -64,18 +64,17 @@ function myFunction() {
   })
   .then(function(data) {
   
-    for (var i = 1; i < data.daily.length; i++) {
+    for (var i = 1; i < 6; i++) {
       var dayTemp = data.daily[i].temp.day;
       var dayWind = data.daily[i].wind_speed;
       var dayHum = data.daily[i].humidity;
       var dayDate = moment.unix(data.daily[i].dt).format("MM/D/YY");
       
+      displayFiveDay(dayTemp, dayWind, dayHum, dayDate);
       console.log(dayTemp, dayWind, dayHum, dayDate);
     }
-    console.log(data);
   })
 }
-
 
   
   function displayCurrent(temp, humidity, wind, uv, day) {
@@ -116,4 +115,38 @@ function myFunction() {
   uvInput.textContent = "UV Index: " + uv;
   display.appendChild(uvInput);
 
+}
+
+function displayFiveDay(dayTemp, dayWind, dayHum, dayDate) {
+  var searchTerm = document.querySelector("#searchTerm").value;
+  searchTerm = searchTerm.toUpperCase();
+
+  var weather = document.getElementById("response-city");
+  var cardEl = document.createElement("div");
+  cardEl.classList.add("card");
+  weather.appendChild(cardEl);
+  
+  var display = document.createElement("div");
+  display.className = "card-body"
+  cardEl.appendChild(display);
+  
+  var cardTitle = document.createElement("h3");
+  cardTitle.className = "card-city";
+  cardTitle.textContent = dayDate;
+  display.appendChild(cardTitle);
+
+  var tempInput = document.createElement("p");
+  tempInput.className = "text";
+  tempInput.textContent = "Temp: " + dayTemp + " F";
+  display.appendChild(tempInput);
+  
+  var humInput = document.createElement("p");
+  humInput.className = "text";
+  humInput.textContent = "Humidity: " + dayHum + "%";
+  display.appendChild(humInput);
+
+  var windInput = document.createElement("p");
+  windInput.className = "text";
+  windInput.textContent = "Wind: " + dayWind + " MPH";
+  display.appendChild(windInput);
 }
