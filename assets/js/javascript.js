@@ -1,10 +1,12 @@
 var date = document.querySelector("#display-time");
-
 var rightNow = moment().format("dddd, MMMM Do");
 date.textContent = rightNow;
 
+var past = [];
+var counter = 0;
 function myFunction() {
   var searchTerm = document.querySelector("#searchTerm").value;
+  
   fetch(
     "https://api.openweathermap.org/data/2.5/weather?q=" + searchTerm + "&units=imperial&appid=27bc004fc8746779f50a74c093ff9a93"
     )
@@ -28,7 +30,7 @@ function myFunction() {
     }
   })
   .then(function(data) {
-    
+    $("#response-city").empty();
     var temp = data.current.temp;
     var humidity = data.current.humidity;
     var uv = data.current.uvi;
@@ -36,6 +38,8 @@ function myFunction() {
     var day = moment.unix(data.current.dt).format("MM/D/YY");
     
     displayCurrent(temp, humidity, wind, uv, day);
+    // saveSearch(searchTerm);
+  
   })
   .catch(function(error) {
     console.log("No data to display");
@@ -71,7 +75,6 @@ function myFunction() {
       var dayDate = moment.unix(data.daily[i].dt).format("MM/D/YY");
       
       displayFiveDay(dayTemp, dayWind, dayHum, dayDate);
-      console.log(dayTemp, dayWind, dayHum, dayDate);
     }
   })
 }
@@ -144,3 +147,25 @@ function displayFiveDay(dayTemp, dayWind, dayHum, dayDate) {
   windInput.textContent = "Wind: " + dayWind + " MPH";
   display.appendChild(windInput);
 }
+
+// function saveSearch(searchTerm) {
+//   searchTerm = searchTerm.toUpperCase();
+//   past.push(searchTerm);
+//   localStorage.setItem("search", JSON.stringify(past));
+
+//   var savedHistory = localStorage.getItem("search");
+//   savedHistory = JSON.parse(savedHistory);
+//   console.log(savedHistory);
+//   for (var i = 0; i < savedHistory.length; i++) {
+
+//     var display = document.getElementById("historyEl");
+//     var place = document.createElement("div");
+//     place.className = "col";
+//     display.appendChild(place);
+    
+//     var button = document.createElement("button");
+//     button.className = "btn btn-outline-secondary";
+//     button.innerHTML = savedHistory[i];
+//     display.appendChild(button);
+// }
+// }

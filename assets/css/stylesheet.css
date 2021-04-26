@@ -62,3 +62,10 @@
     color: var(--primary-color);
     font-weight: bold;
 }
+
+.btn {
+    background-color: var(--tertiary-color);
+    color: var(--primary-color);
+    border: 6px solid var(--secondary-color);
+    font-weight: bold;
+}
