@@ -4,7 +4,7 @@ date.textContent = rightNow;
 
 var past = JSON.parse(localStorage.getItem("past")) || [];
 
-function myFunction() {
+function myFunction(search) {
   var searchTerm = document.querySelector("#searchTerm").value;
   
   fetch(
@@ -119,8 +119,18 @@ function myFunction() {
   display.appendChild(windInput);
 
   var uvInput = document.createElement("p");
+  var uvColor = "";
+  if(uvInput < 4) {
+      uvColor = "success";
+  } 
+  else if(uvInput > 3 & uvi < 7) {
+      uvColor = "warning";
+  } 
+  else if(uvInput > 6 & uvi < 15) {
+      uvColor = "danger";
+  }
   uvInput.className = "text";
-  uvInput.textContent = "UV Index: " + uv;
+  uvInput.textContent = "UV Index: " + uv + uvBackground;
   display.appendChild(uvInput);
 
 }
@@ -165,8 +175,9 @@ function searchButton() {
     place.className = "col";
     display.appendChild(place);
     
-    var button = document.createElement("button");
-    button.className = "btn btn-outline-secondary";
-    button.innerHTML = history;
-    display.appendChild(button);
+    var buttonHistory = document.createElement("buttonHistory");
+    buttonHistory.className = "btn btn-outline-secondary";
+    buttonHistory.innerHTML = history;
+    display.appendChild(buttonHistory);
+    // buttonHistory.addEventListener("click", myFunction(history));
 }
