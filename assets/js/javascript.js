@@ -2,8 +2,8 @@ var date = document.querySelector("#display-time");
 var rightNow = moment().format("dddd, MMMM Do");
 date.textContent = rightNow;
 
-var past = [];
-var counter = 0;
+var past = JSON.parse(localStorage.getItem("past")) || [];
+
 function myFunction() {
   var searchTerm = document.querySelector("#searchTerm").value;
   
@@ -39,6 +39,7 @@ function myFunction() {
     
     displayCurrent(temp, humidity, wind, uv, day);
     // saveSearch(searchTerm);
+    
   
   })
   .catch(function(error) {
@@ -77,6 +78,10 @@ function myFunction() {
       displayFiveDay(dayTemp, dayWind, dayHum, dayDate);
     }
   })
+  searchTerm = searchTerm.toUpperCase();
+  past.push(searchTerm);
+  localStorage.setItem("past", JSON.stringify(past));
+  searchButton();
 }
 
   
@@ -148,24 +153,20 @@ function displayFiveDay(dayTemp, dayWind, dayHum, dayDate) {
   display.appendChild(windInput);
 }
 
-// function saveSearch(searchTerm) {
-//   searchTerm = searchTerm.toUpperCase();
-//   past.push(searchTerm);
-//   localStorage.setItem("search", JSON.stringify(past));
 
-//   var savedHistory = localStorage.getItem("search");
-//   savedHistory = JSON.parse(savedHistory);
-//   console.log(savedHistory);
-//   for (var i = 0; i < savedHistory.length; i++) {
 
-//     var display = document.getElementById("historyEl");
-//     var place = document.createElement("div");
-//     place.className = "col";
-//     display.appendChild(place);
+function searchButton() {
+  for (var i = 0; i < past.length; i++) {
+    var history = past[i];
+  }
     
-//     var button = document.createElement("button");
-//     button.className = "btn btn-outline-secondary";
-//     button.innerHTML = savedHistory[i];
-//     display.appendChild(button);
-// }
-// }
+    var display = document.getElementById("historyEl");
+    var place = document.createElement("div");
+    place.className = "col";
+    display.appendChild(place);
+    
+    var button = document.createElement("button");
+    button.className = "btn btn-outline-secondary";
+    button.innerHTML = history;
+    display.appendChild(button);
+}
